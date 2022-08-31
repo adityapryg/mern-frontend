@@ -23,15 +23,17 @@ function App() {
   return (
       <Router>
         <MainNavigation/>
-        <Switch>
-          <Route path="/" exact>
-            <Users/>
-          </Route>
-          <Route path="/todo/new" exact>
-            <NewTodo/>
-          </Route>
-          <Redirect to='/' />
-        </Switch>
+        <main>
+          <Switch>
+            <Route path="/" exact>
+              <Users/>
+            </Route>
+            <Route path="/todo/new" exact>
+              <NewTodo/>
+            </Route>
+            <Redirect to='/' />
+          </Switch>
+        </main>
       </Router>
   );
 }
