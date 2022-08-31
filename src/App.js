@@ -18,6 +18,7 @@ import {
 import Users from './user/pages/Users';
 import NewTodo from './todo/pages/NewTodo';
 import MainNavigation from './shared/Navigation/MainNavigation';
+import Todo from './todo/pages/Todo';
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
           <Switch>
             <Route path="/" exact>
               <Users/>
+            </Route>
+            <Route path="/todo" exact>
+              <Todo />
             </Route>
             <Route path="/todo/new" exact>
               <NewTodo/>
