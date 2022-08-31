@@ -21,14 +21,17 @@ const DUMMY_TODO = [
 ]
 
 const Todo = () => {
+
     let userID = useParams().userID;
-    let requestedTodo = DUMMY_TODO.filter(todo => todo.creator === userID)
+    let requestedTodo = [...DUMMY_TODO];
     return (
       <section>
         <div className="todo">
           <Button to="/todo/new">Create</Button>
         </div>
-        <TodoList items={requestedTodo} />
+        <TodoList 
+          items={ userID ? requestedTodo.filter(todo => todo.creator === userID) : DUMMY_TODO} 
+        />
       </section>
     )
 }
