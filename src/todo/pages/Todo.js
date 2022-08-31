@@ -19,7 +19,6 @@ const DUMMY_TODO = [
 
 const Todo = () => {
     let userID = useParams().userID;
-    console.log(userID);
     let requestedTodo = DUMMY_TODO.filter(todo => todo.creator === userID)
     return (
         <TodoList items={requestedTodo} />

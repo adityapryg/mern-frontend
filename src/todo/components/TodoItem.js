@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Card from '../../shared/UIElements/Card';
+import Button from '../../shared/FormElements/Button';
 import './TodoItem.css';
 
 const TodoItem = props => {
@@ -12,8 +13,8 @@ const TodoItem = props => {
           <p>{props.description}</p>
         </div>
         <div className="todo-item__actions">
-          <button>EDIT</button>
-          <button>DELETE</button>
+          <Button to={`/todo/${props.id}`}>EDIT</Button>
+          <Button danger>DELETE</Button>
         </div>
       </Card>
     </li>
