@@ -14,10 +14,9 @@ import {
   //Handle apabila url/path tidak tersedia
   Redirect
 } from 'react-router-dom';
-import './App.css';
-import NewTodo from './todo/pages/NewTodo';
-import Users from './user/pages/Users';
 
+import Users from './user/pages/Users';
+import NewTodo from './todo/pages/NewTodo';
 
 function App() {
   return (
