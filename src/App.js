@@ -22,22 +22,18 @@ import Todo from './todo/pages/Todo';
 
 function App() {
   return (
-      <Router>
+    <Router>
+      <React.StrictMode>
         <MainNavigation/>
-        <main>
-          <Switch>
-            <Route path="/" exact>
-              <Users/>
-            </Route>
-            <Route path="/todo" exact>
-              <Todo />
-            </Route>
-            <Route path="/todo/new" exact>
-              <NewTodo/>
-            </Route>
-            <Redirect to='/' />
-          </Switch>
-        </main>
+          <main>
+            <Switch>
+              <Route exact path="/" component={Users}/>
+              <Route exact path="/todo" component={Todo}/>
+              <Route exact path="/todo/new" component={NewTodo}/>
+              <Redirect to='/' />
+            </Switch>
+          </main>
+        </React.StrictMode>
       </Router>
   );
 }
