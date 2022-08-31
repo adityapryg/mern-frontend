@@ -19,14 +19,14 @@ const NewTodo = () => {
           type="text" 
           label="title"
           validators={[VALIDATOR_REQUIRE]}
-          errorMassage="Title is required">
+          errorMessage="Title is required">
         </Input>
         <Input 
           id="description" 
           element="textarea" 
           label="description"
           validators={[VALIDATOR_MINLENGTH(5)]}
-          errorMassage="Description is required and minimum have 5 characters">
+          errorMessage="Description is required and minimum have 5 characters">
         </Input>
         <Button type="submit">
           Submit
