@@ -58,7 +58,7 @@ const Input = props => {
       'form-control--invalid'}`}>
       <label htmlFor={props.id}>{props.label}</label>
       {element}
-      {!state.isValid && <span>{props.errorText}</span>}
+      {!state.isValid && <span>{props.errorMessage}</span>}
     </div>
   );
 };
