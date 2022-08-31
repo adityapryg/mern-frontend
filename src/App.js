@@ -5,12 +5,14 @@ import {
    * sehingga dapat menggunakan location untuk mensingkronasi UI dengan url
    */
   BrowserRouter as Router, 
+  Route,
   /**
    * membungkus node Route
    * Hanya merender 1 route dengan path yang cocok dengan url
    */
-  Route,
-  Switch
+  Switch,
+  //Handle apabila url/path tidak tersedia
+  Redirect
 } from 'react-router-dom';
 import './App.css';
 import NewTodo from './todo/pages/NewTodo';
@@ -27,6 +29,7 @@ function App() {
           <Route path="/todo/new" exact>
             <NewTodo/>
           </Route>
+          <Redirect to='/' />
         </Switch>
       </Router>
   );
