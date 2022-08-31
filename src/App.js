@@ -28,6 +28,7 @@ function App() {
           <main>
             <Switch>
               <Route exact path="/" component={Users}/>
+              <Route exact path="/:userID/todo" component={Todo}/>
               <Route exact path="/todo" component={Todo}/>
               <Route exact path="/todo/new" component={NewTodo}/>
               <Redirect to='/' />
