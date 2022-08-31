@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import NavLinks from './NavLinks';
 import MainHeader from './MainHeader';
+
 import './MainNavigation.css';
 
 const MainNavigation = props => {
@@ -11,7 +13,7 @@ const MainNavigation = props => {
         <Link to="/">MERN Todolist</Link>
       </h1>
       <nav>
-        {/* TodoL Add NavLinks here */}
+        <NavLinks/>
       </nav>
     </MainHeader>
   );
