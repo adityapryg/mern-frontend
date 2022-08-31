@@ -9,8 +9,8 @@ const NewTodo = () => {
     <div className="todo-form">
       <h2 className="center">Create New Todo</h2>
       <form>
-        <Input element="input" type="text" label="title"></Input>
-        <Input element="textarea" label="description"></Input>
+        <Input id="title" element="input" type="text" label="title"></Input>
+        <Input id="description" element="textarea" label="description"></Input>
         <Button type="submit">
           Submit
         </Button>
