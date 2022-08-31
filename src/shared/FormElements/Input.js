@@ -1,15 +1,20 @@
-import React, { useReducer } from 'react';
+import React, { useReducer,useEffect } from 'react';
 
 import { validate } from '../Helpers/Validator';
 import './Input.css';
 
 const inputReducer = (state, action) => {
   switch (action.type) {
-    case 'ONCHANGE':
+    case 'CHANGE':
       return {
         ...state,
         value: action.value,
         isValid: validate(action.value, action.validation)
+      };
+    case 'LEAVING':
+      return {
+        ...state,
+        isLeaving: true
       };
     default:
       return state;
@@ -23,19 +28,33 @@ const Input = props => {
   /**
    * useReducer for more complex managing state
    */
-  const [state, dispatch] = useReducer(inputReducer, {
+  const [inputState, dispatch] = useReducer(inputReducer, {
     value: '',
+    isLeaving: false,
     isValid: false
   })
+
+  const { id, onInput } = props;
+  const { value, isValid } = inputState;
+
+  useEffect(() => {
+    onInput(id, value, isValid)
+  }, [id, value, isValid, onInput]);
 
   const inputChangeHandler = event => {
     //handleinput using reducer
     dispatch({
-      type: 'ONCHANGE',
+      type: 'CHANGE',
       value: event.target.value,
       validation: props.validators
     })
   }
+
+  const leaveInputHandler = () => {
+    dispatch({
+      type: 'LEAVING'
+    });
+  };
 
   const element =
     props.element === 'input' ? (
@@ -44,23 +63,27 @@ const Input = props => {
         type={props.type} 
         placeholder={props.placeholder} 
         onChange={inputChangeHandler}
-        value={state.value}
+        onBlur={leaveInputHandler}
+        value={inputState.value}
       />
     ) : (
       <textarea 
         id={props.id} 
         rows={props.rows || 3} 
         onChange={inputChangeHandler}
-        value={state.value}
+        onBlur={leaveInputHandler}
+        value={inputState.value}
       />
     );
 
   return (
-    <div className={`form-control ${!state.isValid &&
-      'form-control--invalid'}`}>
+    <div className={`form-control ${
+        !inputState.isValid && 
+        inputState.isLeaving &&
+        'form-control--invalid'}`}>
       <label htmlFor={props.id}>{props.label}</label>
       {element}
-      {!state.isValid && <span>{props.errorMessage}</span>}
+      {!inputState.isValid && inputState.isLeaving && <span>{props.errorMessage}</span>}
     </div>
   );
 };
