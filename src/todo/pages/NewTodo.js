@@ -55,10 +55,15 @@ const NewTodo = () => {
     });
   }, []);
 
+  const formSubmitHandler = event => {
+    event.preventDefault();
+    console.table(formState.inputs)
+  }
+
   return (
     <div className="todo-form">
       <h2 className="center">Create New Todo</h2>
-      <form>
+      <form onSubmit={formSubmitHandler}>
         <Input 
           id="title" 
           element="input" 
