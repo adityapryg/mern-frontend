@@ -1,10 +1,11 @@
 import React from 'react';
 
+import Card from '../../shared/UIElements/Card';
 import './UserItem.css';
 
 const UserItem = props => {
   return (
-    <li className="user-item">
+    <Card className="user-item">
       <div className="user-item__content">
         <div className="user-item__image">
           <img src={props.image} alt={props.name} />
@@ -16,7 +17,7 @@ const UserItem = props => {
           </h3>
         </div>
       </div>
-    </li>
+    </Card>
   );
 };
 
