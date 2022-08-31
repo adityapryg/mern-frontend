@@ -5,7 +5,12 @@ import {
    * sehingga dapat menggunakan location untuk mensingkronasi UI dengan url
    */
   BrowserRouter as Router, 
+  /**
+   * membungkus node Route
+   * Hanya merender 1 route dengan path yang cocok dengan url
+   */
   Route,
+  Switch
 } from 'react-router-dom';
 import './App.css';
 import NewTodo from './todo/pages/NewTodo';
@@ -15,12 +20,14 @@ import Users from './user/pages/Users';
 function App() {
   return (
       <Router>
-        <Route path="/">
-          <Users/>
-        </Route>
-        <Route path="/todo/new">
-          <NewTodo/>
-        </Route>
+        <Switch>
+          <Route path="/">
+            <Users/>
+          </Route>
+          <Route path="/todo/new">
+            <NewTodo/>
+          </Route>
+        </Switch>
       </Router>
   );
 }
