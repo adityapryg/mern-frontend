@@ -17,10 +17,12 @@ import {
 
 import Users from './user/pages/Users';
 import NewTodo from './todo/pages/NewTodo';
+import MainNavigation from './shared/Navigation/MainNavigation';
 
 function App() {
   return (
       <Router>
+        <MainNavigation/>
         <Switch>
           <Route path="/" exact>
             <Users/>
