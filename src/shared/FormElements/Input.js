@@ -7,7 +7,7 @@ const inputReducer = (state, action) => {
     case 'ONCHANGE':
       return {
         ...state,
-        value: action.val,
+        value: action.value,
         isValid: true
       };
     default:
@@ -22,13 +22,17 @@ const Input = props => {
   /**
    * useReducer for more complex managing state
    */
-  const [inputState, dispatch] = useReducer(inputReducer, {
+  const [state, dispatch] = useReducer(inputReducer, {
     value: '',
     isValid: false
   })
 
   const inputChangeHandler = event => {
-    //handleinput
+    //handleinput using reducer
+    dispatch({
+      type: 'ONCHANGE',
+      value: event.target.value
+    })
   }
 
   const element =
@@ -38,11 +42,14 @@ const Input = props => {
         type={props.type} 
         placeholder={props.placeholder} 
         onChange={inputChangeHandler}
+        value={state.value}
       />
     ) : (
       <textarea 
         id={props.id} 
         rows={props.rows || 3} 
+        onChange={inputChangeHandler}
+        value={state.value}
       />
     );
 
