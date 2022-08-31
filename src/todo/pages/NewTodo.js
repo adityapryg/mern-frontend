@@ -57,7 +57,7 @@ const NewTodo = () => {
 
   const formSubmitHandler = event => {
     event.preventDefault();
-    console.table(formState.inputs)
+    console.table(formState.inputs) //TODO: Kirim data ke Backend
   }
 
   return (
