@@ -5,7 +5,7 @@ import {
   VALIDATOR_MINLENGTH
 } from '../../shared/Helpers/Validator';
 
-import './NewTodo.css';
+import './Form.css';
 
 const formReducer = (state, action) => {
   switch (action.type) {
