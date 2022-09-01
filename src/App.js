@@ -16,9 +16,10 @@ import {
 } from 'react-router-dom';
 
 import Users from './user/pages/Users';
-import NewTodo from './todo/pages/NewTodo';
-import MainNavigation from './shared/Navigation/MainNavigation';
 import Todo from './todo/pages/Todo';
+import NewTodo from './todo/pages/NewTodo';
+import UpdateTodo from './todo/pages/UpdateTodo';
+import MainNavigation from './shared/Navigation/MainNavigation';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route exact path="/:userID/todo" component={Todo}/>
               <Route exact path="/todo" component={Todo}/>
               <Route exact path="/todo/new" component={NewTodo}/>
+              <Route exact path="/todo/:todoID" component={UpdateTodo}/>
               <Redirect to='/' />
             </Switch>
           </main>
