@@ -24,14 +24,13 @@ const DUMMY_TODO = [
 
 const UpdateTodo = () => {
   let todoID = useParams().todoID;
-  let todoByID = DUMMY_TODO.filter((todo) => todo.id === todoID);
+  let todoByID = DUMMY_TODO.find((todo) => todo.id === todoID);
 
   if (todoByID.length === 0) {
     return (
-      <div className="todo-list center">
+      <div className="center">
         <Card>
-          <h2>Congratulations! No todo left</h2>
-          <button>Share Todo</button>
+          <h2>Todo with ID {todoID} not found!</h2>
         </Card>
       </div>
     );

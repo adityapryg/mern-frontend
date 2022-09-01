@@ -32,7 +32,7 @@ function App() {
               <Route exact path="/:userID/todo" component={Todo}/>
               <Route exact path="/todo" component={Todo}/>
               <Route exact path="/todo/new" component={NewTodo}/>
-              <Route exact path="/todo/:todoID" component={UpdateTodo}/>
+              <Route path="/todo/:todoID" component={UpdateTodo}/>
               <Redirect to='/' />
             </Switch>
           </main>
