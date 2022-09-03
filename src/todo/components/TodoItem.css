@@ -1,0 +1,42 @@
+.todo-item {
+  margin: 1rem 0;
+}
+
+.todo-item__content {
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo-item__info {
+  padding: 1rem;
+}
+
+.todo-item__info h2,
+.todo-item__info h3,
+.todo-item__info p {
+  margin: 0 0 0.5rem 0;
+}
+
+.todo-item__actions {
+  padding: 1rem;
+}
+
+.todo-item__modal-content {
+  padding: 0;
+}
+
+.todo-item__modal-actions {
+  text-align: right;
+}
+
+.todo-item__actions button,
+.todo-item__actions a {
+  margin: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .todo-item__image {
+    height: 20rem;
+  } 
+}
