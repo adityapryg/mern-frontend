@@ -1,11 +1,13 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+
 import Input from "../../shared/FormElements/Input";
 import Button from "../../shared/FormElements/Button";
 import Card from "../../shared/UIElements/Card";
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from "../../shared/Helpers/Validator";
+import { useForm } from '../../shared/Hooks/Form';
 
 import './Form.css';
-import { useParams } from "react-router-dom";
 
 const DUMMY_TODO = [
   {
@@ -26,6 +28,25 @@ const UpdateTodo = () => {
   let todoID = useParams().todoID;
   let todoByID = DUMMY_TODO.find((todo) => todo.id === todoID);
 
+  const [formState, inputHandler] = useForm(
+    {
+      title: {
+        value: todoByID.title,
+        isValid: true
+      },
+      description: {
+        value: todoByID.description,
+        isValid: true
+      }
+    },
+    true
+  );
+
+  const formSubmitHandler = event => {
+    event.preventDefault();
+    console.log(formState.inputs);
+  };
+
   if (todoByID.length === 0) {
     return (
       <div className="center">
@@ -39,7 +60,7 @@ const UpdateTodo = () => {
   return (
     <div className="todo-form">
       <h2 className="center">Create New Todo</h2>
-      <form onSubmit={() => {}}>
+      <form onSubmit={formSubmitHandler}>
         <Input 
           id="title" 
           element="input" 
@@ -47,9 +68,9 @@ const UpdateTodo = () => {
           label="title"
           validators={[VALIDATOR_REQUIRE(1)]}
           errorMessage="Title is required"
-          onInput={() => {}}
-          initialValue={todoByID.title}
-          initialIsValid={true}
+          onInput={inputHandler}
+          initialValue={formState.inputs.title.value}
+          initialIsValid={formState.inputs.title.isValid}
         />
         <Input
           id="description" 
@@ -57,11 +78,11 @@ const UpdateTodo = () => {
           label="description"
           validators={[VALIDATOR_MINLENGTH(5)]}
           errorMessage="Description is required and minimum have 5 characters"
-          onInput={() => {}}
-          initialValue={todoByID.description}
-          initialIsValid={true}
+          onInput={inputHandler}
+          initialValue={formState.inputs.description.value}
+          initialIsValid={formState.inputs.description.isValid}
         />
-        <Button type="submit" disabled={true}>
+        <Button type="submit" disabled={!formState.isValid}>
           Submit
         </Button>
       </form>
