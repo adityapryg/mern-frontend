@@ -5,6 +5,15 @@ import Button from '../../shared/FormElements/Button';
 import './TodoItem.css';
 
 const TodoItem = props => {
+  const confirmDeleteHandler = () => {
+    if( window.confirm('Are you sure deleting this data?') ){
+      console.log('DELETING... ID:' + props.id);
+      //TODO: delete on database
+    } else {
+      console.log('Cancel Delete')
+    }
+  };
+
   return (
     <li className="todo-item">
       <Card className="todo-item__content">
@@ -14,7 +23,7 @@ const TodoItem = props => {
         </div>
         <div className="todo-item__actions">
           <Button to={`/todo/${props.id}`}>EDIT</Button>
-          <Button danger>DELETE</Button>
+          <Button danger onClick={confirmDeleteHandler}>DELETE</Button>
         </div>
       </Card>
     </li>
