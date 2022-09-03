@@ -8,7 +8,7 @@ import { useHttpClient } from "../../shared/Hooks/Http";
 import './Todo.css';
 
 const Todo = () => {
-    const {isLoading, error, sendRequest, clearError} = useHttpClient();
+    const {isLoading, sendRequest} = useHttpClient();
     const [loadedTodos, setLoadedTodo] = useState();
 
     // let userID = useParams().userID;
@@ -26,11 +26,6 @@ const Todo = () => {
 
     return (
       <React.Fragment>
-        { error && <div class="center">
-          <strong>{error}</strong>
-          <button type="button" class="close" onClick={clearError}>×</button>	
-        </div>}
-        
         {isLoading && (
           <div className="center">
             <LoadingSpinner />
