@@ -38,7 +38,7 @@ export const useHttpClient = () => {
         throw err;
       }
     },
-    []
+    [setIsLoading]
   );
 
   const clearError = () => {
