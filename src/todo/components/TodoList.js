@@ -10,7 +10,6 @@ const TodoList = props => {
       <div className="todo-list center">
         <Card>
           <h2>Congratulations! No todo left</h2>
-          <button>Share Todo</button>
         </Card>
       </div>
     );
@@ -24,6 +23,7 @@ const TodoList = props => {
           id={todo.id}
           title={todo.title}
           description={todo.description}
+          onDelete={props.onDeleteTodo}
         />
       ))}
     </ul>

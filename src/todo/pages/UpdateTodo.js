@@ -1,33 +1,19 @@
 import React, {useEffect, useState} from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import Input from "../../shared/FormElements/Input";
 import Button from "../../shared/FormElements/Button";
 import Card from "../../shared/UIElements/Card";
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from "../../shared/Helpers/Validator";
 import { useForm } from '../../shared/Hooks/Form';
-
+import { useHttpClient } from "../../shared/Hooks/Http";
 import './Form.css';
 
-const DUMMY_TODO = [
-  {
-    id: 'tid1',
-    title: 'Belajar React',
-    description: 'Membangun interface aplikasi todo list',
-    creator: 'uid1'
-  },
-  {
-    id: 'tid2',
-    title: 'Belajar Express Node',
-    description: 'Membangun REST API',
-    creator: 'uid2'
-  }
-]
-
 const UpdateTodo = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const history = useHistory();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [loadedTodo, setLoadedTodo] = useState();
   let todoID = useParams().todoID;
-  let todoByID = DUMMY_TODO.find((todo) => todo.id === todoID);
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -44,35 +30,45 @@ const UpdateTodo = () => {
   );
 
   useEffect(() => {
-    setFormData(
-      {
-        title: {
-          value: todoByID.title,
-          isValid: true
-        },
-        description: {
-          value: todoByID.description,
-          isValid: true
-        }
-      },
-      setIsLoading(false)
-    )
-  }, [setFormData, todoByID])
+    const fetchTodo = async () => {
+      try {
+        const responseData = await sendRequest(`http://localhost:5000/api/todo/${todoID}`);
+        setLoadedTodo(responseData.todo)
+        setFormData(
+          {
+            title: {
+              value: responseData.todo.title,
+              isValid: true
+            },
+            description: {
+              value: responseData.todo.description,
+              isValid: true
+            }
+          },
+          true
+        )
+      } catch (error) {}
+    };
+    fetchTodo();
+  }, [sendRequest, todoID, setFormData])
 
-  const formSubmitHandler = event => {
+  const formSubmitHandler = async event => {
     event.preventDefault();
-    console.log(formState.inputs);
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/todo/${todoID}`,
+        'PATCH',
+        JSON.stringify({
+          title: formState.inputs.title.value,
+          description: formState.inputs.description.value
+        }),
+        {
+          'Content-Type': 'application/json'
+        }
+      );
+      history.push('/todo')
+    } catch (err) {}
   };
-
-  if (todoByID.length === 0) {
-    return (
-      <div className="center">
-        <Card>
-          <h2>Todo with ID {todoID} not found!</h2>
-        </Card>
-      </div>
-    );
-  }
 
   if (isLoading) {
     return (
@@ -82,10 +78,28 @@ const UpdateTodo = () => {
     );
   }
 
+  if(!loadedTodo && !error) {
+    return (
+      <div className="center">
+        <Card>
+          <h2>Todo with ID {todoID} not found!</h2>
+        </Card>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="center">
+        <h2>{error}</h2>
+        <button type="button" onClick={clearError}>×</button>	
+      </div>
+    );
+  }
 
   return (
     <div className="todo-form">
-      <h2 className="center">Create New Todo</h2>
+      <h2 className="center">Update Todo</h2>
       <form onSubmit={formSubmitHandler}>
         <Input 
           id="title" 
