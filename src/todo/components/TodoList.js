@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../../shared/FormElements/Button';
 
 import Card from '../../shared/UIElements/Card';
 import TodoItem from './TodoItem';
@@ -10,7 +11,6 @@ const TodoList = props => {
       <div className="todo-list center">
         <Card>
           <h2>Congratulations! No todo left</h2>
-          <button>Share Todo</button>
         </Card>
       </div>
     );
