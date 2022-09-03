@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 
 import Input from "../../shared/FormElements/Input";
@@ -25,22 +25,39 @@ const DUMMY_TODO = [
 ]
 
 const UpdateTodo = () => {
+  const [isLoading, setIsLoading] = useState(true);
   let todoID = useParams().todoID;
   let todoByID = DUMMY_TODO.find((todo) => todo.id === todoID);
 
-  const [formState, inputHandler] = useForm(
+  const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
-        value: todoByID.title,
-        isValid: true
+        value: '',
+        isValid: false
       },
       description: {
-        value: todoByID.description,
-        isValid: true
+        value: '',
+        isValid: false
       }
     },
-    true
+    false
   );
+
+  useEffect(() => {
+    setFormData(
+      {
+        title: {
+          value: todoByID.title,
+          isValid: true
+        },
+        description: {
+          value: todoByID.description,
+          isValid: true
+        }
+      },
+      setIsLoading(false)
+    )
+  }, [setFormData, todoByID])
 
   const formSubmitHandler = event => {
     event.preventDefault();
@@ -56,6 +73,15 @@ const UpdateTodo = () => {
       </div>
     );
   }
+
+  if (isLoading) {
+    return (
+      <div className="center">
+        <h2>Loading...</h2>
+      </div>
+    );
+  }
+
 
   return (
     <div className="todo-form">
