@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '../../shared/FormElements/Button';
 
 import Card from '../../shared/UIElements/Card';
 import TodoItem from './TodoItem';
@@ -24,6 +23,7 @@ const TodoList = props => {
           id={todo.id}
           title={todo.title}
           description={todo.description}
+          onDelete={props.onDeleteTodo}
         />
       ))}
     </ul>

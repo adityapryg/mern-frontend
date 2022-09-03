@@ -24,6 +24,12 @@ const Todo = () => {
       fetchTodos();
     }, [sendRequest]);
 
+    const todoDeletedHandler = deletedTodoId => {
+      setLoadedTodo(prevTodos =>
+        prevTodos.filter(todo => todo.id !== deletedTodoId)
+      );
+    };
+
     return (
       <React.Fragment>
         {isLoading && (
@@ -34,7 +40,7 @@ const Todo = () => {
         <div className="todo">
           <Button to="/todo/new">Create</Button>
         </div>
-        {!isLoading && loadedTodos && <TodoList items={ loadedTodos }/>}
+        {!isLoading && loadedTodos && <TodoList items={ loadedTodos } onDeleteTodo={todoDeletedHandler}/>}
       </React.Fragment>
     )
 }
